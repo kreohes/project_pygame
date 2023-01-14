@@ -1,14 +1,17 @@
 import pygame, sys
 from button import Button
+import os
 
 pygame.init()
 
-WIDTH, HEIGHT = size = 1200, 720
+WIDTH, HEIGHT = size = 700, 720
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
-FPS = 50
+FPS = 60
+pygame.mixer.music.load("data/Menu.mp3")
+pygame.mixer.music.play(-1)
 
-BG = pygame.image.load("data/fon.png")
+BG = pygame.image.load("data/fon1.png")
 
 
 def get_font(size):
@@ -17,6 +20,8 @@ def get_font(size):
 
 def play():
     pass
+    #import gameplay
+
 
 
 def options():
@@ -26,17 +31,14 @@ def options():
 def main_menu():
     while True:
         screen.blit(BG, (0, 0))
-
         menu_mouse_pos = pygame.mouse.get_pos()
-
-        menu_text = get_font(100).render("MAIN MENU", True, "#b68f40")
-        menu_rect = menu_text.get_rect(center=(640, 100))
-
-        play_button = Button(image=pygame.image.load("data/Play Rect.png"), pos=(640, 250),
+        menu_text = get_font(100).render("MENU", True, "#FFFFFF")
+        menu_rect = menu_text.get_rect(center=(350, 100))
+        play_button = Button(image=pygame.image.load("data/Play Rect.png"), pos=(350, 250),
                              text_input="PLAY", font=get_font(75), base_color="#d7fcd4", appearing_color="White")
-        options_button = Button(image=pygame.image.load("data/Options Rect.png"), pos=(640, 400),
+        options_button = Button(image=pygame.image.load("data/Options Rect.png"), pos=(350, 400),
                                 text_input="OPTIONS", font=get_font(75), base_color="#d7fcd4", appearing_color="White")
-        quit_button = Button(image=pygame.image.load("data/Quit Rect.png"), pos=(640, 550),
+        quit_button = Button(image=pygame.image.load("data/Quit Rect.png"), pos=(350, 550),
                              text_input="QUIT", font=get_font(75), base_color="#d7fcd4", appearing_color="White")
 
         screen.blit(menu_text, menu_rect)
