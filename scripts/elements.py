@@ -15,11 +15,15 @@ class Barrier:
         self.picture = picture
         self.speed = speed
         self.sizes = self.picture.get_rect()
-        self.lifespan = 0
+        self.lifespan = 255
 
     def draw(self, display):
         self.lifespan -= 1
-        picture_height, picture_weight = self.picture.get_height(), self.picture.get_weight()
+        display.blit(
+            pygame.transform.scale(self.picture, (self.picture.get_width() * 4, self.picture.get_height() * 4)),
+            (self.pos[0], self.pos[1]))
+        self.pos[1] -= self.speed
+        self.sizes.topleft = self.pos
 
 
 class Deer:
@@ -34,13 +38,13 @@ class Deer:
             self.dop = -4
         elif self.x == 400:
             self.dop == 4
-        self.rectangle = ''
+        self.rectangle = None
 
     def draw(self, display):
         self.rectangle = pygame.Rect(self.x, self.y, self.pictures[self.num // 15].get_width() * 4,
                                      self.pictures[self.num // 15].get_height() * 4)
         self.num = animate(self.pictures, self.num, 15)
-        if self.dop == 4:
+        if self.dop == -4:
             display.blit(pygame.transform.scale(self.pictures[self.num // 15], (
                 self.pictures[self.num // 15].get_width() * 4,
                 self.pictures[self.num // 15].get_height() * 4)), (self.x, self.y))
@@ -48,7 +52,7 @@ class Deer:
         elif self.dop == 4:
             display.blit(
                 pygame.transform.scale(pygame.transform.flip(self.pictures[self.num // 15], True, False), (
-                self.pictures[self.num // 15].get_width() * 4,
-                self.pictures[self.num // 15].get_height() * 4)), (self.x, self.y))
-        self.y, self.x =self.speed, self.dop
-
+                    self.pictures[self.num // 15].get_width() * 4,
+                    self.pictures[self.num // 15].get_height() * 4)), (self.x, self.y))
+        self.y -= self.speed
+        self.x += self.dop

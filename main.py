@@ -1,5 +1,6 @@
 import pygame, sys
-from button import Button
+
+from scripts.button import Button
 import os
 
 pygame.init()
@@ -19,13 +20,7 @@ def get_font(size):
 
 
 def play():
-    pass
-    #import gameplay
-
-
-
-def options():
-    pass
+    import scripts.gameplay
 
 
 def main_menu():
@@ -37,7 +32,8 @@ def main_menu():
         play_button = Button(image=pygame.image.load("data/Play Rect.png"), pos=(350, 250),
                              text_input="PLAY", font=get_font(75), base_color="#d7fcd4", appearing_color="White")
         options_button = Button(image=pygame.image.load("data/Options Rect.png"), pos=(350, 400),
-                                text_input="OPTIONS", font=get_font(75), base_color="#d7fcd4", appearing_color="White")
+                                text_input=F"SCORE 0", font=get_font(75), base_color="#d7fcd4",
+                                appearing_color="White")
         quit_button = Button(image=pygame.image.load("data/Quit Rect.png"), pos=(350, 550),
                              text_input="QUIT", font=get_font(75), base_color="#d7fcd4", appearing_color="White")
 
@@ -54,8 +50,6 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if play_button.checkForInput(menu_mouse_pos):
                     play()
-                if options_button.checkForInput(menu_mouse_pos):
-                    options()
                 if quit_button.checkForInput(menu_mouse_pos):
                     pygame.quit()
                     sys.exit()
